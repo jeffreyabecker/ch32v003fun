@@ -40,8 +40,8 @@ include(FetchContent)
 
 FetchContent_Declare(
     ch32fun
-    GIT_REPOSITORY  https://github.com/cnlohr/ch32fun.git
-    GIT_TAG         master
+    GIT_REPOSITORY  "${CH32FUN_FRAMEWORK_REPO}.git"
+    GIT_TAG         ${CH32FUN_FRAMEWORK_REF}
     GIT_SHALLOW     TRUE
 )
 

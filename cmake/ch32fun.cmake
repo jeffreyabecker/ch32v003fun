@@ -19,18 +19,25 @@
 #   5. Loads the ch32fun_configure() function for MCU target setup.
 #
 # Cache variables (set before include to override defaults):
-#   CH32FUN_CMAKE_REPO  — Base URL for the cmake modules repository.
-#                          Default: raw.githubusercontent.com/.../main/cmake/
+#   CH32FUN_FRAMEWORK_REPO  — Base URL for the ch32fun repository.
+#                               Default: https://github.com/cnlohr/ch32fun
+#   CH32FUN_FRAMEWORK_REF   — Git ref (tag or branch) for the framework.
+#                               Default: master
 # ============================================================================
 
 include_guard(GLOBAL)
 
 # ── 0. Bootstrap: fetch missing cmake modules ───────────────────────────────
 
-if(NOT CH32FUN_CMAKE_REPO)
-    set(CH32FUN_CMAKE_REPO
-        "https://raw.githubusercontent.com/cnlohr/ch32fun_cmake/main/cmake"
-        CACHE STRING "Base URL for ch32fun cmake modules")
+if(NOT CH32FUN_FRAMEWORK_REPO)
+    set(CH32FUN_FRAMEWORK_REPO
+        "https://github.com/cnlohr/ch32fun"
+        CACHE STRING "Base URL for the ch32fun repository")
+endif()
+
+if(NOT CH32FUN_FRAMEWORK_REF)
+    set(CH32FUN_FRAMEWORK_REF "master" CACHE STRING
+        "Git ref (tag or branch) for the ch32fun framework")
 endif()
 
 # Directory to cache the downloaded modules alongside this file.
@@ -40,7 +47,7 @@ foreach(_mod ch32fun-toolchain FindCH32Fun_Framework FindCH32Fun_Extras ch32fun-
     set(_dst "${_cmake_cache}/${_mod}.cmake")
     if(NOT EXISTS "${_dst}")
         message(STATUS "ch32fun: fetching ${_mod}.cmake …")
-        file(DOWNLOAD "${CH32FUN_CMAKE_REPO}/${_mod}.cmake" "${_dst}"
+        file(DOWNLOAD "${CH32FUN_FRAMEWORK_REPO}/${CH32FUN_FRAMEWORK_REF}/cmake/${_mod}.cmake" "${_dst}"
              STATUS _dl TIMEOUT 60)
         list(GET _dl 0 _code)
         if(NOT _code EQUAL 0)

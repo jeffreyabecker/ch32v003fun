@@ -1,0 +1,33 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "default",
+      "displayName": "CH32V003 (Ninja)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CH32FUN_MCU": "CH32V003"
+      }
+    },
+    {
+      "name": "ch32v203",
+      "displayName": "CH32V203 (Ninja)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build-v203",
+      "cacheVariables": {
+        "CH32FUN_MCU": "CH32V203"
+      }
+    },
+    {
+      "name": "ch32v307",
+      "displayName": "CH32V307 (Ninja)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build-v307",
+      "cacheVariables": {
+        "CH32FUN_MCU": "CH32V307",
+        "CH32FUN_MEMORY_SPLIT": "3"
+      }
+    }
+  ]
+}
